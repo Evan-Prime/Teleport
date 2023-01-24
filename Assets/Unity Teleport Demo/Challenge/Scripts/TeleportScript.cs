@@ -19,8 +19,12 @@ public class TeleportScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Vector3 deltaPosition = targetPosition - gameObject.transform.position;
-            gameObject.GetComponent<CharacterController>().Move(deltaPosition);
-            gameObject.transform.position = Vector3.zero;
+
+            Physics.IgnoreLayerCollision(0, gameObject.layer, true);
+            gameObject.GetComponent<CharacterController>().Move(deltaPosition); // via "motion"
+            gameObject.GetComponent<CharacterController>().SimpleMove(Vector3.zero); // via "speed"
+            Physics.IgnoreLayerCollision(0, gameObject.layer, false);
+            //gameObject.transform.position = Vector3.zero;
         }
     }
 }
